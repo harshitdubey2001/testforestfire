@@ -2,18 +2,18 @@ import pickle
 from flask import Flask, request, render_template
 
 
-application = Flask(__name__)
+app = Flask(__name__)
 
 # Load Ridge model and StandardScaler
 ridge_model = pickle.load(open("models/ridge.pkl", "rb"))
 Standard_Scaler = pickle.load(open("models/scaler.pkl", "rb"))
 
 
-@application.route("/")
+@app.route("/")
 def index():
     return render_template("home.html")
 
-@application.route("/predictdata",methods=["GET","POST"])
+@app.route("/predictdata",methods=["GET","POST"])
 def predict_datapoints():
     if request.method=="POST":
         # convert all inputs to float
@@ -39,4 +39,4 @@ def predict_datapoints():
 
 
 if __name__ == "__main__":
-    application.run(debug=True, host="0.0.0.0")
+    app.run(debug=True, host="0.0.0.0")
